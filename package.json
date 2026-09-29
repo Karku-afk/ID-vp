@@ -1,0 +1,29 @@
+{
+  "name": "id-vp",
+  "version": "1.0.0",
+  "description": "õppetöö käigus tehtud veeb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://karku-afk@github.com/Karku-afk/ID-vp.git"
+  },
+  "keywords": [
+    "TLÜ",
+    "DTI",
+    "veeb",
+    "õppetöö"
+  ],
+  "author": "Karmen Varipuu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Karku-afk/ID-vp/issues"
+  },
+  "homepage": "https://github.com/Karku-afk/ID-vp#readme",
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  }
+}
