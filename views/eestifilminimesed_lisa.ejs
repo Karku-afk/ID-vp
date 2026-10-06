@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+	<meta charset="utf-8">
+	<title>Karmen Varipuu, veebiprogrammeerimine</title>
+</head>
+<body>
+<img src="../pic/veebiprogrammeerimine_2026_ID.png" alt="">
+	<h1>Eesti filmiga seotud inimesed</h1>
+	<ul>
+		<li><a href="/">Tagasi avalehele</a></li>
+		<li><a href= "/eestifilm">Tagasi Eesti filmi avalehele</a></li>
+	</ul>
+	<form method="POST">
+		<label for ="firstNameInput">Filmi inimese eesnimi</label>
+		<input id="firstNameInput" name="firstNameInput" type="text" placeholder="Eesnimi" required>
+		<br>
+		<input id="lastNameInput" name="lastNameInput" type="text" placeholder="Perekonnanimi" required>
+		<br>
+		<input id="bornInput" name="bornInput" type="date" required>
+		<br>
+		<input id="deceasedInput" name="deceasedInput" type="date">		
+		<br>
+		<input id="personSubmit" name="personSubmit" type="submit" placeholder="Salvesta">
+	</form>
+	<p><%= notice %=></p>
+</body>
+</html>

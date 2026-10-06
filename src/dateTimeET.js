@@ -46,7 +46,7 @@ function paev(){
 }
 
 //ekspordin kõik vajalikud funktsioonid koos mugavate nimedega
-module.exports ={time: timeFormattedET, date: dateFormattedET, day: paev};
+module.exports ={time: timeFormattedET, day: paev, date: dateFormattedET};
 
 
 
