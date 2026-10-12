@@ -51,11 +51,10 @@ app.get('/regvisit', (req, res)=>{
 
 app.post('/regvisit', async (req, res)=>{
     try {
-        await fs.open(regtextRef, 'a');
         // külastuse kuupäev ja kellaaeg dateFindET.js moodulist
         const visitDate = dateET.date();
         const visitTime = dateET.time();
-        await fs.appendFile(regtextRef, req.body.nameInput + ', ' + visitDate + ', ' + visitTime + ';');
+        await fs.appendFile(regtextRef, req.body.inputName + ', ' + visitDate + ', ' + visitTime + ';');
         res.render('regvisit');
     } catch (err){
         console.log(err);
@@ -145,7 +144,7 @@ app.post('/eestifilm/inimesed_lisa', async (req, res)=>{
 
 app.get('/lastvisit', async (req, res)=>{
     try {
-        const rawText = await fs.readFile(regTextRef, 'utf8');
+        const rawText = await fs.readFile(regtextRef, 'utf8');
         let visitList = rawText.split(';');
         // viimane element on tühi (lõpus olev semikoolon), seega viimane külastus on eelviimane
         let lastVisitParts = visitList[visitList.length - 2].split(',');
