@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+	<meta charset="utf-8">
+	<title>Karmen Varipuu, veebiprogrammeerimine</title>
+</head>
+<body>
+<img src="../pic/veebiprogrammeerimine_2026_ID.png" alt="">
+	<h1>Ametite lisamine</h1>
+	<ul>
+		<li><a href="/">Tagasi avalehele</a></li>
+		<li><a href= "/eestifilm">Tagasi Eesti filmi avalehele</a></li>
+	</ul>
+	<form method="POST">
+		<label for="titleInput">Ameti nimetus</label>
+		<input id="titleInput" name="titleInput" type="text" placeholder="Nimetus" value="<%= title %>" required>
+		<span><%= titleError %></span>
+		<br>
+		<label for="descriptionInput">Kirjeldus</label>
+		<br>
+		<textarea id="descriptionInput" name="descriptionInput" rows="6" cols="60" placeholder="Kirjeldus"><%= description %></textarea>
+		<span><%= descriptionError %></span>
+		<br>
+		<input id="professionSubmit" name="professionSubmit" type="submit" value="Salvesta">
+	</form>
+	<p><%= notice %></p>
+</body>
+</html>

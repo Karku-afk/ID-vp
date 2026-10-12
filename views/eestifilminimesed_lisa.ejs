@@ -13,16 +13,20 @@
 	</ul>
 	<form method="POST">
 		<label for ="firstNameInput">Filmi inimese eesnimi</label>
-		<input id="firstNameInput" name="firstNameInput" type="text" placeholder="Eesnimi" required>
+		<input id="firstNameInput" name="firstNameInput" type="text" placeholder="Eesnimi" value="<%= firstName %>" required>
+		<span><%= firstNameError %></span>
 		<br>
-		<input id="lastNameInput" name="lastNameInput" type="text" placeholder="Perekonnanimi" required>
+		<input id="lastNameInput" name="lastNameInput" type="text" placeholder="Perekonnanimi" value="<%= lastName %>" required>
+		<span><%= lastNameError %></span>
 		<br>
-		<input id="bornInput" name="bornInput" type="date" required>
+		<input id="bornInput" name="bornInput" type="date" value="<%= born %>" required>
+		<span><%= bornError %></span>
 		<br>
-		<input id="deceasedInput" name="deceasedInput" type="date">		
+		<input id="deceasedInput" name="deceasedInput" type="date" value="<%= deceased %>">		
+		<span><%= deceasedError %></span>
 		<br>
 		<input id="personSubmit" name="personSubmit" type="submit" placeholder="Salvesta">
 	</form>
-	<p><%= notice %=></p>
+	<p><%= notice %></p>
 </body>
 </html>
