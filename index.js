@@ -46,22 +46,21 @@ app.get('/vanasona', async (req, res)=>{
 });
 
 app.get('/regvisit', (req, res)=>{
-	res.render('regvisit');
+    res.render('regvisit');
 });
 
 app.post('/regvisit', async (req, res)=>{
-	try {
-		await fs.open(regtextRef, 'a');
-		await fs.appendFile(regtextRef, req.body.inputName + ';');
-		res.render('regvisit');
-	}
-	catch (err) {
-		console.log(err);
-		res.render('regvisit');
-	}
-	
+    try {
+        await fs.open(regtextRef, 'a');
+        // külastuse kuupäev ja kellaaeg dateFindET.js moodulist
+        const visitDate = dateET.date();
+        const visitTime = dateET.time();
+        await fs.appendFile(regtextRef, req.body.nameInput + ', ' + visitDate + ', ' + visitTime + ';');
+        res.render('regvisit');
+    } catch (err){
+        console.log(err);
+    }
 });
-
 app.get('/huvitav', (req, res)=>{
     res.render('huvitav');
 });
@@ -87,7 +86,7 @@ app.get('/eestifilm/inimesed', async (req, res)=>{
 	}
 	catch (err) {
 		console.log('andmebaasiga suhtlemise viga' + err);
-		res.render('eestifilminimesed', personlist: []});
+		res.render('eestifilminimesed', {personlist: []});
 	}
 
 finally {
@@ -109,7 +108,7 @@ app.post('/eestifilm/inimesed_lisa', async (req, res)=>{
 	const timeNow = new Date ();
 	if(!req.body.firstNameInput || !req.body.lastNameInput || !req.body.bornInput || isNaN(bornDate.getTime()) || bornDate > timeNow){
 		console.log("Andmed pole korrektsed");
-		return res.render("eestifilminimesed_lisa", (notice:"Ootan sisestust"));
+		return res.render("eestifilminimesed_lisa", {notice:"Ootan sisestust"});
 	}
 	let deceasedDate = null;
 	
@@ -131,7 +130,7 @@ app.post('/eestifilm/inimesed_lisa', async (req, res)=>{
 	req.body.bornInput,
 	ceceasedDate
 	]);
-	res.render("eestifilminimesed_lisa", (notice: req.body.firstNameInput + " " + req.body.lastNameInput + "andmebaasi lisatud"));
+	res.render("eestifilminimesed_lisa", {notice: req.body.firstNameInput + " " + req.body.lastNameInput + "andmebaasi lisatud"});
 	}
 	catch(err){
 		console.log("Viga andmebaasiga suhtlemisel");
@@ -142,6 +141,19 @@ app.post('/eestifilm/inimesed_lisa', async (req, res)=>{
 			await conn.end();
 		}
 	}
+});
+
+app.get('/lastvisit', async (req, res)=>{
+    try {
+        const rawText = await fs.readFile(regTextRef, 'utf8');
+        let visitList = rawText.split(';');
+        // viimane element on tühi (lõpus olev semikoolon), seega viimane külastus on eelviimane
+        let lastVisitParts = visitList[visitList.length - 2].split(',');
+        // osad: [0] nimi, [1] kuupäev, [2] kellaaeg
+        res.render('lastvisit', {lastVisit: 'Viimati registreeriti külastus ' + lastVisitParts[1].trim() + ', kell ' + lastVisitParts[2].trim() + ' kui seda tegi ' + lastVisitParts[0].trim()});
+    } catch(err) {
+        res.render('lastvisit', {lastVisit: 'Ei leidnud ühtegi külastust!'});
+    }
 });
 
 app.listen(5219);
