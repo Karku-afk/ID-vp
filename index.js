@@ -64,11 +64,16 @@ app.get('/huvitav', (req, res)=>{
     res.render('huvitav');
 });
 
-app.get('/eestifilm', (req, res)=>{
-	res.render('eestifilm');
-});
+//Eesti filmi marsruudid
+const eestiFilmRouter = require('./routes/eestifilmRoutes');
+app.use('/eestifilm', eestiFilmRouter);
 
-app.get('/eestifilm/inimesed', async (req, res)=>{
+
+/* app.get('/eestifilm', (req, res)=>{
+	res.render('eestifilm');
+}); */
+
+/* app.get('/eestifilm/inimesed', async (req, res)=>{
 	let conn; //connection
 	try {
 		conn = await mysql.createConnection({
@@ -94,8 +99,9 @@ finally {
 	}
 }
 });
-
-app.get('/eestifilm/inimesed_lisa', (req, res)=>{
+ */
+ 
+/* app.get('/eestifilm/inimesed_lisa', (req, res)=>{
     res.render('eestifilminimesed_lisa', {
         notice: "Ootan sisestust",
         firstName: null,
@@ -107,9 +113,9 @@ app.get('/eestifilm/inimesed_lisa', (req, res)=>{
         bornError: null,
         deceasedError: null
     });
-});
+}); */
 
-app.post('/eestifilm/inimesed_lisa', async (req, res)=>{
+/* app.post('/eestifilm/inimesed_lisa', async (req, res)=>{
 	console.log(req.body);
 	//kontrollime andmeid, iga sisendit eraldi
 	let inputValid = true;
@@ -227,9 +233,9 @@ app.post('/eestifilm/inimesed_lisa', async (req, res)=>{
 			await conn.end();
 		}
 	}
-});
+}); */
 
-app.get('/eestifilm/filmid_lisa', (req, res)=>{
+/* app.get('/eestifilm/filmid_lisa', (req, res)=>{
     res.render('eestifilmfilmid_lisa', {
         notice: "Ootan sisestust",
         title: null,
@@ -241,7 +247,7 @@ app.get('/eestifilm/filmid_lisa', (req, res)=>{
         durationError: null,
         descriptionError: null
     });
-});
+}); */
 
 app.post('/eestifilm/filmid_lisa', async (req, res)=>{
 	console.log(req.body);
