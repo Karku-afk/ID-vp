@@ -33,6 +33,16 @@ app.get('/', (req, res)=>{
 	res.render('index', {dateNow: dateNow, timeNow: timeNow});
 });
 
+//sisseloginud kasutajate avaleht
+
+app.get('/home', (req, res) => {
+	res.render('home');
+});
+
+app.get('/logout', (req, res) => {
+	res.render('/');
+});
+
 app.get('/vanasona', async (req, res)=>{
 	try {
 		const data = await fs.readFile(textRef, "utf8");
@@ -99,5 +109,10 @@ app.use('/galleryPhotoUpload', galleryPhotoUploadRouter);
 
 const signupRouter = require('./routes/signupRoutes');
 app.use('/signup', signupRouter);
+
+//sisselogimine
+
+const signinRouter = require('./routes/signinRoutes');
+app.use('/signin', signupRouter);
 
 app.listen(5219);
