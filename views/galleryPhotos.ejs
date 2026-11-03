@@ -1,0 +1,29 @@
+<html lang="et">
+<head>
+	<meta charset="utf-8">
+	<title>Karmen Varipuu, veebiprogrammeerimine</title>
+</head>
+<body>
+	<img src="/pic/veebiprogrammeerimine_2026_ID.png" alt ="banner">	
+    <h1>Karmen Varipuu, veebiprogrammeerimine</h1>
+	<h1>Galeriisse fotod</h1>
+	<p>Siin lehel saab galeriis vaadata fotosi.</p>
+	<hr>
+	<ul>
+		<li><a href="/">Avalehele</a></li>
+	</ul>
+	<hr>
+	<ul>
+    <% if (typeof pictureList !== 'undefined' && pictureList.length > 0) { %>
+        <% pictureList.forEach(function(picture){ %>
+            <li>
+                <img src='/gallery/normal/<%= picture.filename %>' alt='<%= picture.alttext %>'><br>
+                <%= picture.alttext %>
+            </li>
+        <% }); %>
+    <% } else { %>
+        <li>Pilte ei leitud või galerii on tühi.</li>
+    <% } %>
+    </ul>
+</body>
+</html>

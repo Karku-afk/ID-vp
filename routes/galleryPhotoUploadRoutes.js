@@ -5,8 +5,9 @@ const router = express.Router();
 //seadistame multer vahevara (middleware) failide üleslaadimiseks
 //määran üleslaadimise kataloogi
 const upload = multer ({dest: './public/gallery/orig/'});
-
+//'./public/gallery/orig/'
 //kasutatavad kontrollerid
+
 const {
 	galleryPhotoUpload,
 	galleryPhotoUploadPost} = require('../controllers/galleryPhotoUploadControllers');

@@ -55,14 +55,35 @@ app.post('/regvisit', async (req, res)=>{
         const visitDate = dateET.date();
         const visitTime = dateET.time();
         await fs.appendFile(regtextRef, req.body.inputName + ', ' + visitDate + ', ' + visitTime + ';');
+				// kõige uuem avalik foto (privaatsus 3), mida pole kustutatud
+		conn = await mysql.createConnection({
+			host: process.env.DB_HOST,
+			user: process.env.DB_USER,
+			password: process.env.DB_PASS,
+			database: process.env.DB_NAME
+		});
+		const sqlReq = 'SELECT filename, alttext FROM galleryphotos WHERE id=(SELECT MAX(id) FROM galleryphotos WHERE privacy=? AND deleted IS NULL)';
+		const [sqlRes] = await conn.execute(sqlReq, [3]);
+		let photoAlt = sqlRes[0].alttext;
+		if(!photoAlt) {
+			photoAlt = 'Uusim avalik foto';
+		}
+		res.render('index', {lastVisit: 'Viimati registreeriti külastus ' + lastVisitParts[1].trim() + ', kell ' + lastVisitParts[2].trim() + ' kui seda tegi ' + lastVisitParts[0].trim(), dayNow: dayNow, dateNow: dateNow, timeNow: timeNow, photoFile: sqlRes[0].filename, photoAlt: photoAlt});
         res.render('regvisit');
     } catch (err){
         console.log(err);
     }
 });
+
+
+
+
 app.get('/huvitav', (req, res)=>{
     res.render('huvitav');
 });
+
+const galleryPhotoRouter = require('./routes/galleryPhotoRoutes');
+app.use('/galleryPhotos', galleryPhotoRouter);
 
 //Eesti filmi marsruudid
 const eestiFilmRouter = require('./routes/eestifilmRoutes');
@@ -73,5 +94,10 @@ app.use('/eestifilm', eestiFilmRouter);
 
 const galleryPhotoUploadRouter = require('./routes/galleryPhotoUploadRoutes');
 app.use('/galleryPhotoUpload', galleryPhotoUploadRouter);
+
+//kasutajakonto loomine
+
+const signupRouter = require('./routes/signupRoutes');
+app.use('/signup', signupRouter);
 
 app.listen(5219);
