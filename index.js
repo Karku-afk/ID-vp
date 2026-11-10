@@ -7,6 +7,9 @@ const bodyparser = require('body-parser');
 const mysql = require('mysql2/promise');
 //moodul .env koskkonnamuutujate lugemiseks
 require('dotenv').config();
+const session = require('express-session');
+
+const checkLogin = require('./src/checkLogin');
 
 const dateET = require('./src/dateTimeET');
 
@@ -17,6 +20,8 @@ const regtextRef = "public/txt/visits.txt";
 
 //käivitan funktsiooni express() ja annan nimeks app
 const app = express();
+//võtame kasutusele sessioonihalduri
+app.use(session({secret:process.env.SES_SECRET, saveUnitialized: false, resave: true}));
 //määrame renderusmootori: EJS
 app.set('view engine', 'ejs');
 //määrame avalikuna kasutatava kataloogi
@@ -35,12 +40,14 @@ app.get('/', (req, res)=>{
 
 //sisseloginud kasutajate avaleht
 
-app.get('/home', (req, res) => {
+app.get('/home', checkLogin.isLogin, (req, res) => {
 	res.render('home');
 });
 
 app.get('/logout', (req, res) => {
-	res.render('/');
+	//hävitame sessiooni
+	req.session.destroy();
+	res.redirect('/');
 });
 
 app.get('/vanasona', async (req, res)=>{
