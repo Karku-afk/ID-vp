@@ -120,6 +120,6 @@ app.use('/signup', signupRouter);
 //sisselogimine
 
 const signinRouter = require('./routes/signinRoutes');
-app.use('/signin', signupRouter);
+app.use('/signin', signinRouter);
 
 app.listen(5219);

@@ -4,6 +4,8 @@ const multer = require('multer');
 const checkLogin = require('../src/checkLogin');
 
 
+
+
 const router = express.Router();
 
 // seadistame multer vahevara (middleware) failide üleslaadimiseks
