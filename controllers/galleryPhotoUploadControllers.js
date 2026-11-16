@@ -23,7 +23,7 @@ const galleryPhotoUploadPost = async(req, res) => {
 		res.render('galleryPhotoUpload');
 		//teeme ka pisipildi
 		await sharp(req.file.destination + fileName).resize(100,100).jpeg({quality:90}).toFile('./public/gallery/thumbs/' + fileName);
-		let sqlReq = 'INSERT INTO galleryPhotos (filename, origname, alttext, privacy, userid) VALUES (?,?,?,?,?)';
+		let sqlReq = 'INSERT INTO gallery_photos (filename, origname, alttext, privacy, userid) VALUES (?,?,?,?,?)';
 		res.render('galleryPhotoUpload');
 		//const userid = 1; //see on ajutine, kuni teeme kasutajakontod ja sisselogimise
 		const userId = req.session.userId;
@@ -33,7 +33,7 @@ const galleryPhotoUploadPost = async(req, res) => {
 			password: process.env.DB_PASS,
 			database: process.env.DB_NAME,
 		})
-		const [result] = await conn.execute(sqlReq, [fileName, req.file.originalName, req.body.altInput, req.body.privacyInput, userid]);
+		const [result] = await conn.execute(sqlReq, [fileName, req.file.originalname, req.body.altInput, req.body.privacyInput, userId]);
 		console.log('Salvestati foto kirje id: ' + result.insertId);
 		res.render('galleryPhotoUpload');
 	}

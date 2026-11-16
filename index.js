@@ -79,14 +79,14 @@ app.post('/regvisit', async (req, res)=>{
 			password: process.env.DB_PASS,
 			database: process.env.DB_NAME
 		});
-		const sqlReq = 'SELECT filename, alttext FROM galleryphotos WHERE id=(SELECT MAX(id) FROM galleryphotos WHERE privacy=? AND deleted IS NULL)';
+		const sqlReq = 'SELECT filename, alttext FROM gallery_photos WHERE id=(SELECT MAX(id) FROM gallery_photos WHERE privacy=? AND deleted IS NULL)';
 		const [sqlRes] = await conn.execute(sqlReq, [3]);
 		let photoAlt = sqlRes[0].alttext;
 		if(!photoAlt) {
 			photoAlt = 'Uusim avalik foto';
 		}
 		res.render('index', {lastVisit: 'Viimati registreeriti külastus ' + lastVisitParts[1].trim() + ', kell ' + lastVisitParts[2].trim() + ' kui seda tegi ' + lastVisitParts[0].trim(), dayNow: dayNow, dateNow: dateNow, timeNow: timeNow, photoFile: sqlRes[0].filename, photoAlt: photoAlt});
-        res.render('regvisit');
+        //res.render('regvisit');
     } catch (err){
         console.log(err);
     }
