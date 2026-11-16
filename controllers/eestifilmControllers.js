@@ -420,9 +420,9 @@ const visitAdd = async (req, res) => {
         // viimane element on tühi (lõpus olev semikoolon), seega viimane külastus on eelviimane
         let lastVisitParts = visitList[visitList.length - 2].split(',');
         // osad: [0] nimi, [1] kuupäev, [2] kellaaeg
-        res.render('lastvisit', {lastVisit: 'Viimati registreeriti külastus ' + lastVisitParts[1].trim() + ', kell ' + lastVisitParts[2].trim() + ' kui seda tegi ' + lastVisitParts[0].trim()});
+        res.render('lastVisit', {lastVisit: 'Viimati registreeriti külastus ' + lastVisitParts[1].trim() + ', kell ' + lastVisitParts[2].trim() + ' kui seda tegi ' + lastVisitParts[0].trim()});
     } catch(err) {
-        res.render('lastvisit', {lastVisit: 'Ei leidnud ühtegi külastust!'});
+        res.render('lastVisit', {lastVisit: 'Ei leidnud ühtegi külastust!'});
     }
 };
 

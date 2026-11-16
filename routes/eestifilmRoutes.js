@@ -29,6 +29,6 @@ router.route('/ametid_lisa').get(ametidAdd);
 
 router.route('/ametid_lisa').post(ametidAddPost);
 
-router.route('/lastvisit').get(visitAdd);
+router.route('/lastVisit').get(visitAdd);
 
 module.exports = router;

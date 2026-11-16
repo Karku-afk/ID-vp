@@ -69,7 +69,7 @@ const signupPagePost = async(req, res) => {
 			password: process.env.DB_PASS,
 			database: process.env.DB_NAME
 		});
-		res.render('signup', {notice: 'Andmed tulevad'});
+		//res.render('signup', {notice: 'Andmed tulevad'});
 
 	
 	//kontrollin kas selline kasutaja on äkki juba olemas

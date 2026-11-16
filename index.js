@@ -21,7 +21,7 @@ const regtextRef = "public/txt/visits.txt";
 //käivitan funktsiooni express() ja annan nimeks app
 const app = express();
 //võtame kasutusele sessioonihalduri
-app.use(session({secret:process.env.SES_SECRET, saveUnitialized: false, resave: true}));
+app.use(session({secret:process.env.SES_SECRET, saveUninitialized: false, resave: true}));
 //määrame renderusmootori: EJS
 app.set('view engine', 'ejs');
 //määrame avalikuna kasutatava kataloogi

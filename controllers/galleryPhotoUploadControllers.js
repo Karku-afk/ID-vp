@@ -20,11 +20,11 @@ const galleryPhotoUploadPost = async(req, res) => {
 		await fs.rename(req.file.path, req.file.destination + fileName);
 		//pildi väiksemaks muutmine
 		await sharp(req.file.destination + fileName).resize(800,600).jpeg({quality:90}).toFile('./public/gallery/normal/' + fileName);
-		res.render('galleryPhotoUpload');
+		
 		//teeme ka pisipildi
 		await sharp(req.file.destination + fileName).resize(100,100).jpeg({quality:90}).toFile('./public/gallery/thumbs/' + fileName);
 		let sqlReq = 'INSERT INTO gallery_photos (filename, origname, alttext, privacy, userid) VALUES (?,?,?,?,?)';
-		res.render('galleryPhotoUpload');
+		
 		//const userid = 1; //see on ajutine, kuni teeme kasutajakontod ja sisselogimise
 		const userId = req.session.userId;
 		conn = await mysql.createConnection({
